@@ -11,9 +11,7 @@ const htmlPage =
 
 router.get(
 	"/google",
-	(req, res, next) => {
-		req.session = req.query;
-		next();},
+	
 	passport.authenticate("google", { scope: ["profile", "email"] })
 );
 

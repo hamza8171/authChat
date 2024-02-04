@@ -1,6 +1,8 @@
 const path =require("path");
 let multer=require("../../utilities/multer");
 var fs=require("fs");
+const {sendSMS}=require("./../../utilities/smsService");
+const {sendEmail}=require('../../utilities/mailer')
 //const storage=require("multer").memoryStorage();
 
   //  const cpUpload=multer.fields([{name:'file',maxCount:1}])
@@ -38,7 +40,24 @@ router.post("/delete", function (req, res, next) {
 		})
 
 
+router.post("/sendSMS",(req,res,next)=>{
+const body=req.body;
+console.log("body",body);
+sendSMS(body);
+return next();
 
+
+
+});
+
+router.post('/sendEmail',(req,res,next)=>{
+		const user=req.body;
+		const body=req.body.body;
+
+	sendEmail(user,body,"contactUs");
+
+
+});
 
 
 

@@ -4,6 +4,7 @@ let {emailVerifyTemplate,contactUsTemplate,forgotPasswordTemplate}=require('./em
 
 const setTransporter=()=>{
         return nodemailer.createTransport({
+                
                 host:"smtp.gmail.com",
                 secure: true,
                 port: 465,
@@ -19,7 +20,7 @@ const setTransporter=()=>{
 
 
 const selectTemplate=(user,body,template)=>{
-if(body.verifyEmail){template=verifyEmail(user)}
+if(body.verifyEmail){template=emailVerifyTemplate(user)}
 else if(body.contactUs){template=contactUsTemplate(user)}
 else if(body.forgotPassword){template=forgotPasswordTemplate(user)}
 else {console.log("body not found",body)}
@@ -38,7 +39,7 @@ let template=""
 
 const message={
 to:user.email,
-from:"hamzaravian4@gmail.com",
+from:"speakr@speakr.fr",
 subject,
 html:template
 

@@ -3,7 +3,7 @@ let {expressjwt:jwt} = require("express-jwt");
 let secret = require("../config").secret;
 let mongoose = require("mongoose");
 
-let User = mongoose.model("User");
+let User = require('./../models/User');
 let UnauthorizedResponse = require("express-http-response").UnauthorizedResponse;
 
 function getTokenFromHeader(req) {
@@ -20,14 +20,16 @@ function getTokenFromHeader(req) {
 }
 
 const user = (req, res, next) => {
-    console.log('payload='+req.body.payload.id)
-	User.findById(req.body.payload.id)
+    console.log('payload='+req.body.id)
+	User.findById(req.body.id)
 		.then(function (user) {
+		
 			if (!user) return next(new UnauthorizedResponse());
 			// also add here bit of status
 			req.user = user;
 			//console.log(user);
-			res.send({user:user.toAuthJSON()})
+			//res.send({user:user.toAuthJSON()})
+			next();
 		})
 		.catch(next);
 };

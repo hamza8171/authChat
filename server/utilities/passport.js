@@ -8,15 +8,15 @@ const {Google_Client_ID,Google_Client_secret,backend}=require('.././config')
 passport.use(
 	new LocalStrategy(
 		{
-			usernameField: "username",
+			usernameField: "email",
 			passwordField: "password",
 		},
-		function (username, password, done) {
+		function (email, password, done) {
 			User.findOne({
-				email: { $regex: new RegExp("^" + username + "$", "i") },
+				email: email,
 			})
 				.then(function (user) {
-				
+						
 					if (!user || !user.validPassword(password))
 						return done(null, false, { error: "Username or password is invalid!!" });
 
@@ -34,12 +34,13 @@ new GoogleStrategy({
 clientID:Google_Client_ID,
 clientSecret:Google_Client_secret,
 callbackURL:backend+'/api/externalAuth/google/callback',
-passReqToCallback:false
+passReqToCallback:false,
+scope: ['profile', 'email'],
 
 
 
 } ,function(accessToken,refreshToken,profile,done){
-	//console.log('profile', JSON.stringify(profile));
+	console.log('profile', JSON.stringify(profile));
 	//console.log('profileid',profile.id );
 	done(null,profile);
 

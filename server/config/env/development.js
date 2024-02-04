@@ -3,8 +3,8 @@ module.exports = {
   backend: "http://localhost:8000",
   frontend: "http://91.107.238.5",
   publicPics: "http://91.107.238.5/uploads/publicPics",
- Google_Client_ID:"184615412448-vjkfh2kn287ep7a89rtq9lj6egnusq1c.apps.googleusercontent.com",
- Google_Client_secret:"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",
+ Google_Client_ID:"184615412448-1snlvjvrkkcr8kgl4eumli46m17oragc.apps.googleusercontent.com",
+ Google_Client_secret:"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",
   // backend: "http://localhost:8000",
   // frontend: "http://localhost:3000",
   // publicPics: "http://http://localhost:8000/uploads/publicPics",
@@ -14,8 +14,8 @@ module.exports = {
   host: "",
  
   smtpAuth: {
-    user: "hamzaravian@gmail.com",
-    pass: "hamza41333",
+    user: 'verify@smartup.dk',
+    pass: 'Noraiz.123456'
   },
   allowedOrigins: ["http://localhost:3000", "http://localhost:8000", "http://3.82.223.219", "http://91.107.238.5"],
 };
