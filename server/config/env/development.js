@@ -17,5 +17,5 @@ module.exports = {
     user: 'verify@smartup.dk',
     pass: 'Noraiz.123456'
   },
-  allowedOrigins: ["http://localhost:3000", "http://localhost:8000", "http://3.82.223.219", "http://91.107.238.5"],
+  allowedOrigins: ["http://localhost:3000", "http://localhost:8000", " http://localhost:5173", "http://91.107.238.5"],
 };

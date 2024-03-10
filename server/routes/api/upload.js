@@ -2,13 +2,26 @@ const path =require("path");
 let multer=require("../../utilities/multer");
 var fs=require("fs");
 const {sendSMS}=require("./../../utilities/smsService");
-const {sendEmail}=require('../../utilities/mailer')
+const {sendEmail}=require('../../utilities/mailer');
+const { default: mongoose } = require("mongoose");
+const BadRequestResponse = require("express-http-response/lib/http/BadRequestResponse");
+const OkResponse = require("express-http-response/lib/http/OkResponse");
+const User=mongoose.model("User");
 //const storage=require("multer").memoryStorage();
 
   //  const cpUpload=multer.fields([{name:'file',maxCount:1}])
 let router=require("express").Router();
 
 var cpUpload = multer.fields([{ name: "file", maxCount: 2 }]);
+
+//params
+router.param('id',(req,res,next,id)=>{
+console.log(id);
+next();
+
+})
+
+
 
 router.post('/',cpUpload,(req,res,next)=>{
     console.log(req.files)
@@ -33,7 +46,7 @@ router.post("/delete", function (req, res, next) {
 });
 		// get one user from DB
 		router.get('/one/:id',(req,res)=>{
-			console.log(req.params);
+		
 
 
 
@@ -51,10 +64,18 @@ return next();
 });
 
 router.post('/sendEmail',(req,res,next)=>{
-		const user=req.body;
-		const body=req.body.body;
-
-	sendEmail(user,body,"contactUs");
+		User.find({}).then((res)=>{
+			if(!res) return next(new BadRequestResponse("user not found"));
+			else{
+				//console.log(res[0]);
+				const user=res[0];
+				const body =req.body.body;
+				sendEmail(user,body,"contactUs");
+				return next(new OkResponse(res));
+			}
+	
+		})
+	
 
 
 });

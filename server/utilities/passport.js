@@ -3,7 +3,8 @@ let LocalStrategy=require("passport-local").Strategy;
 let mongoose=require("mongoose");
 let User=mongoose.model("User");
 let GoogleStrategy=require("passport-google-oauth20").Strategy;
-const {Google_Client_ID,Google_Client_secret,backend}=require('.././config')
+let FacebookStrategy=require("passport-facebook").Strategy;
+const {Google_Client_ID,Google_Client_secret,backend}=require('.././config');
 
 passport.use(
 	new LocalStrategy(
@@ -49,5 +50,10 @@ scope: ['profile', 'email'],
 
 
 ))
+
+//authenticate using facebook
+
+
+
 
 

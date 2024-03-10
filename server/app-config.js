@@ -7,18 +7,42 @@ let router=require("express").Router();
  path =require("path"),
  createLocaleMiddleware=require("express-locale"),
  https=require("http");
+ let allowedOrigins=require("./config").allowedOrigins
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 let isProduction = process.env.NODE_ENV === 'production';
 let mongodbClient=require("mongodb").MongoClient
 let secret=require('./config').secret;
 let startPolyglot=require("./utilities/startPolyglot");
+let cors=require("cors");
 
  module.exports= (app)=>{
 
 app.use(morgan('tiny'))
 
 //app.use(require(morgan('tiny')));
+
+
+
+
+app.use(cors({
+Credential:true,
+origin:(origin,callback)=>{
+  console.log("origon ",origin);
+  if(!origin) return callback(null,true);
+  if(allowedOrigins.indexOf(origin)!==-1){
+    var msg = "The CORS policy for this site does not " + "allow access from the specified Origin.";
+					return callback(new Error(msg), false);
+  }
+  return callback(null,true)
+
+
+}
+
+}))
+
+
+
 
 app.use(bodyparser.urlencoded({extended:false,limit:'500mb'}));
 app.use(bodyparser.json({ strict: false }));

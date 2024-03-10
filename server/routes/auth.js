@@ -20,8 +20,8 @@ function getTokenFromHeader(req) {
 }
 
 const user = (req, res, next) => {
-    console.log('payload='+req.body.id)
-	User.findById(req.body.id)
+    console.log('payload=',req.body.id);
+	User.findById({_id:req.body.id})
 		.then(function (user) {
 		
 			if (!user) return next(new UnauthorizedResponse());
@@ -35,7 +35,8 @@ const user = (req, res, next) => {
 };
 
 const admin = (req, res, next) => {
-	User.findById(req.payload.id)
+	console.log("admin",req.body.id)
+	User.findById(req.body.id)
 		.then(function (user) {
 			if (!user) return next(new UnauthorizedResponse());
 			if (user.role !== "admin") next(new UnauthorizedResponse());

@@ -52,7 +52,7 @@ transpoter.sendMail(message,(err,info)=>{
              console.log(err)
         }else{
 
-                console.log("emal info",info)
+                console.log("email info",info)
         }
 }
 

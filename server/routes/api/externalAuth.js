@@ -155,7 +155,7 @@ router.get("failed", (req, res, next) => {
 
 router.get('/',(req,res)=>{
 
-	res.send('<button><a href="/google">authenticate with google</a></button>')
+	res.send('<button><a href="externalAuth/google">authenticate with google</a></button>')
 })
 
 module.exports = router;

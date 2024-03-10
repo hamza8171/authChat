@@ -15,7 +15,6 @@ owner:{
     ref:"User",
     required:true
 },
-
 history:{
     type:[{
         desc:{type:String,
@@ -56,6 +55,7 @@ status: {
 
 NftSchema.plugin(uniqueValidator,{message:"taken"});
 
+
 const autopopulate=(next)=>{
 
     this.populate("owner");
@@ -63,8 +63,8 @@ const autopopulate=(next)=>{
     next();
 }
 
-NftSchema.pre("find",autopopulate);
-NftSchema.pre("findOne",autopopulate);
+//NftSchema.pre("find",autopopulate);
+//NftSchema.pre("findOne",autopopulate);
 NftSchema.pre('validate',function(next){
 if(!this.slug){
     this.slugify();
@@ -73,11 +73,11 @@ if(!this.slug){
 next();
 });
 
-NftSchema.methods.slugify=()=>{
+NftSchema.methods.slugify=function(){
 
     this.slug= slug(((Math.random() * Math.pow(36, 6)) | 0).toString(36));
 }
-NftSchema.methods.toJSON = function () {
+NftSchema.methods.toJSON =  ()=> {
 	return {
 		slug: this.slug,
 		tokenId: this.tokenId,

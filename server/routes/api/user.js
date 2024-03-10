@@ -18,6 +18,16 @@ router.param("email", (req, res, next, email) => {
     });
   });
 
+router.param("id",(req,res,next,id)=>{
+
+  User.findById({_id:id}).then((user)=>{
+    if(!user)  next(new BadRequestResponse("user id not found"));
+    req.user=user;
+    next();
+  })
+
+})
+
 //signup user
 
 
@@ -105,7 +115,26 @@ router.post("/signup", (req, res, next) => {
 
       });
        
+      router.get('/',(req,res,next)=>{
+        User.find({}).then((resp)=>{
+       
+            if(!res) return next(new BadRequestResponse("No user found"))
+            return next(res.send(resp));
+        })
+      })
 
+      router.delete('/delete/:id',(req,res,next)=>{
+            let id=req.params.id;
+            console.log("user_id", id);
+         User.findByIdAndDelete({_id:id}).then(()=>{
+          res.json({"message":"User deleted successfuly"});
+         }).catch((err)=>{
+          res.send({err:err.message});
+         })
+
+        //  User.findByIdAndDelete({_id:id})
+
+ })
     
 
 

@@ -47,8 +47,10 @@ router.post('/add',auth.user,(req,res,next)=>{
 
 router.get('/All',(req,res,next)=>{
 
-Nft.find({}).then((resp)=>{
-    if(resp) return next(new OkResponse({NFT:resp.toJSON()}));
+Nft.find({}).populate("history.actionBy").then((resp)=>{
+  console.log("response",resp);
+   res.json({NFT:resp});
+   
 })
 
 
